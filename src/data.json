@@ -1,0 +1,13 @@
+{
+    "1000": {"job_id": 1000, "job_arrival_time": 187388, "current_round_time": 0,"num_allocated_gpus": 1}, 
+    "1042": {"job_id": 1042, "job_arrival_time": 200000, "current_round_time": 0, "num_allocated_gpus": 3}, 
+    "1040": {"job_id": 1040, "job_arrival_time": 200035, "current_round_time": 0, "num_allocated_gpus": 0}, 
+    "1045": {"job_id": 1045, "job_arrival_time": 222135, "current_round_time": 1, "num_allocated_gpus": 5}, 
+    "1039": {"job_id": 1039, "job_arrival_time": 243135, "current_round_time": 1, "num_allocated_gpus": 1}, 
+    "1041": {"job_id": 1041, "job_arrival_time": 202135, "current_round_time": 1, "num_allocated_gpus": 3}, 
+    "1043": {"job_id": 1043, "job_arrival_time": 259415, "current_round_time": 2, "num_allocated_gpus": 2}, 
+    "1044": {"job_id": 1044, "job_arrival_time": 228555, "current_round_time": 2, "num_allocated_gpus": 2}, 
+    "1047": {"job_id": 1047, "job_arrival_time": 234752, "current_round_time": 3, "num_allocated_gpus": 5},
+    "1049": {"job_id": 1049, "job_arrival_time": 273730, "current_round_time": 3, "num_allocated_gpus": 0}, 
+    "1050": {"job_id": 1050, "job_arrival_time": 228555, "current_round_time": 3, "num_allocated_gpus": 2}
+}

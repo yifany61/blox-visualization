@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import data from './data.json'; 
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
+import data from './data.json';
 
 const processData = (data) => {
   const jobs = Object.entries(data).map(([job_id, job_info]) => ({
@@ -35,6 +35,12 @@ const processData = (data) => {
   return formattedData;
 };
 
+// random color
+const generateColor = (index) => {
+  const hue = (index * 137.508) % 360; 
+  return `hsl(${hue}, 70%, 50%)`;
+};
+
 const GpuUtilization = () => {
   const [chartData, setChartData] = useState({});
   const [visibleRounds, setVisibleRounds] = useState([]);
@@ -61,17 +67,12 @@ const GpuUtilization = () => {
         dataKey="gpus" 
         data={chartData[round]} 
         name={`Round ${round}`} 
-        stroke={getColor(index)}
+        stroke={generateColor(index)}
       />
     ));
   };
 
-  const getColor = (index) => {
-    const colors = ['#8884d8', '#82ca9d', '#ffc658', '#ff7300', '#413ea0', '#ffbb28'];
-    return colors[index % colors.length];
-  };
-
-  // Generate time intervals for the x-axis
+  // time intervals
   const generateTimeIntervals = () => {
     const allTimes = Object.values(chartData).flat().map(d => d.time);
     const minTime = Math.min(...allTimes);
@@ -123,7 +124,6 @@ const GpuUtilization = () => {
             ticks={timeIntervals} 
           />
           <YAxis />
-          <Tooltip />
           <Legend />
           {renderLines()}
         </LineChart>

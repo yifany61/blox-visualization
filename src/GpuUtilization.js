@@ -37,7 +37,7 @@ const processData = (data) => {
 
 // random color
 const generateColor = (index) => {
-  const hue = (index * 137.508) % 360; 
+  const hue = (index * 137.508) % 360;
   return `hsl(${hue}, 70%, 50%)`;
 };
 
@@ -49,6 +49,7 @@ const GpuUtilization = () => {
   useEffect(() => {
     const processedData = processData(data);
     setChartData(processedData);
+    setVisibleRounds(Object.keys(processedData)); 
   }, []);
 
   const rounds = Object.keys(chartData);

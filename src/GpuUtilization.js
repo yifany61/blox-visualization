@@ -5,7 +5,7 @@ import data from './data.json'; // Assuming your JSON data is stored in data.jso
 const processData = (data) => {
   const jobs = Object.entries(data).map(([job_id, job_info]) => ({
     job_id: job_id,
-    current_round_time: job_info.current_round_time + 1, 
+    current_round_time: job_info.current_round_time + 1, // Start from round 1 instead of 0
     num_allocated_gpus: job_info.num_allocated_gpus,
     job_arrival_time: job_info.job_arrival_time
   }));
@@ -30,9 +30,10 @@ const processData = (data) => {
   return roundData;
 };
 
-const GpuUtilizationOverTime = () => {
+const GpuUtilization = () => {
   const [chartData, setChartData] = useState({});
   const [visibleRounds, setVisibleRounds] = useState([]);
+  const [selectedMetric, setSelectedMetric] = useState("gpu_utilization");
 
   useEffect(() => {
     const processedData = processData(data);
@@ -66,18 +67,31 @@ const GpuUtilizationOverTime = () => {
   };
 
   return (
-    <div>
-      <div>
-        <button onClick={() => setVisibleRounds(rounds)}>Show All Rounds</button>
-        {rounds.map(round => (
+    <div style={{ padding: '20px', backgroundColor: '#f0f0f0' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div>
+          <h2>Select Metric</h2>
           <button 
-            key={round} 
-            onClick={() => toggleRoundVisibility(round)}
-            style={{ backgroundColor: visibleRounds.includes(round) ? 'lightgray' : 'white' }}
+            onClick={() => setSelectedMetric("gpu_utilization")}
+            style={{ backgroundColor: selectedMetric === "gpu_utilization" ? 'lightgray' : 'white' }}
           >
-            Round {round}
+            GPU Utilization
           </button>
-        ))}
+          {/* Add more metric buttons as needed */}
+        </div>
+        <div>
+          <h2>Select Round</h2>
+          <button onClick={() => setVisibleRounds(rounds)}>Show All Rounds</button>
+          {rounds.map(round => (
+            <button 
+              key={round} 
+              onClick={() => toggleRoundVisibility(round)}
+              style={{ backgroundColor: visibleRounds.includes(round) ? 'lightgray' : 'white' }}
+            >
+              Round {round}
+            </button>
+          ))}
+        </div>
       </div>
       <ResponsiveContainer width="100%" height={400}>
         <LineChart>
@@ -93,4 +107,4 @@ const GpuUtilizationOverTime = () => {
   );
 };
 
-export default GpuUtilizationOverTime;
+export default GpuUtilization;

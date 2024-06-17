@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, Label, YAxis, CartesianGrid, Legend, ResponsiveContainer } from 'recharts';
 import data from './data.json';
 
 const processData = (data) => {
@@ -35,11 +35,24 @@ const processData = (data) => {
   return formattedData;
 };
 
-// random color
 const generateColor = (index) => {
   const hue = (index * 137.508) % 360;
   return `hsl(${hue}, 70%, 50%)`;
 };
+
+// const CustomTooltip = ({ active, payload, label }) => {
+//   if (active && payload && payload.length) {
+//     return (
+//       <div className="custom-tooltip" style={{ backgroundColor: '#fff', padding: '5px', border: '1px solid #ccc' }}>
+//         {payload.map((entry, index) => (
+//           <p key={`item-${index}`} style={{ color: entry.color }}>{`(${label}, ${entry.value})`}</p>
+//         ))}
+//       </div>
+//     );
+//   }
+
+//   return null;
+// };
 
 const GpuUtilization = () => {
   const [chartData, setChartData] = useState({});
@@ -49,7 +62,7 @@ const GpuUtilization = () => {
   useEffect(() => {
     const processedData = processData(data);
     setChartData(processedData);
-    setVisibleRounds(Object.keys(processedData)); 
+    setVisibleRounds(Object.keys(processedData));
   }, []);
 
   const rounds = Object.keys(chartData);
@@ -99,7 +112,6 @@ const GpuUtilization = () => {
           >
             GPU Utilization
           </button>
-          {/* Add more metric buttons as needed */}
         </div>
         <div>
           <h2>Select Round</h2>
@@ -122,10 +134,15 @@ const GpuUtilization = () => {
             dataKey="time" 
             type="number" 
             domain={['dataMin', 'dataMax']} 
-            ticks={timeIntervals} 
-          />
-          <YAxis />
-          <Legend />
+            ticks={timeIntervals}
+            height={80}
+          >
+            <Label value="Time" position="centerBottom" />
+          </XAxis>
+          <YAxis>
+            <Label value="GPU Utilization" angle={-90} position="insideEnd" />
+          </YAxis>
+          <Legend verticalAlign="top" height={36} />
           {renderLines()}
         </LineChart>
       </ResponsiveContainer>
